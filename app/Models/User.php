@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Models\Estoque;
+use App\Models\Models\Itemestoque;
+use App\Models\Models\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -51,4 +54,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function estoques()
+    {
+        return $this->belongsToMany(Estoque::class, 'Itemestoque', 'usersFor_id', 'estoque_id');
+    }
+
+    public function roles()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }
