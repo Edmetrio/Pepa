@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Models\Categoria;
+use App\Models\Models\Estoque;
+use App\Models\Models\Itemestoque;
 use App\Models\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class ProdutoController extends Controller
@@ -48,7 +51,7 @@ class ProdutoController extends Controller
         ]);
   
         $input = $request->all();
-        dd($input);
+
         if($icon = $request->file('icon')){
             $destino = 'assets/images/produto';
             $perfil = date('YmdHis') . "." . $icon->getClientOriginalExtension();
@@ -56,7 +59,18 @@ class ProdutoController extends Controller
             $input['icon'] = "$perfil";
         }
     
+        //produto
         $produto = Produto::create($input);
+        $inputEstoque = $input;
+        $inputEstoque['produto_id'] = $produto->id;
+
+        //Estoque
+        $estoque = Estoque::create($inputEstoque);
+        $inputItem = $inputEstoque;
+        $inputItem['estoque_id'] = $estoque->id;
+        /* $inputItem['users_id'] = Auth::user()->id; */
+        //Item Estoque
+        Itemestoque::create($inputItem);
         if($produto){
             return ["resultado"=>"Produto criada com sucesso"];
         } else {
@@ -95,6 +109,7 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->all();
         $request->validate([
             'categoria_id' => 'required',
             'nome' => 'required',
