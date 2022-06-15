@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class CategoriaController extends Controller
@@ -16,7 +17,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return Categoria::orderBy('created_at', 'desc')->get();
+        return Categoria::with('produtos')->orderBy('created_at', 'desc')->get();
     }
 
     /**
@@ -62,7 +63,7 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        return Categoria::findOrFail($id);
+        return Categoria::with('produtos')->findOrFail($id);
     }
 
     /**
