@@ -16,4 +16,9 @@ class Distrito extends Model
 
     protected $table = 'distrito';
     protected $fillable = ['provincia_id','nome','estado'];
+
+    public function pais()
+    {
+        return $this->belongsToMany(Pais::class, 'distrito_id');
+    }
 }
