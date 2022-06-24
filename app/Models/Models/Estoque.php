@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use GoldSpecDigital\LaravelEloquentUUID\Database\Eloquent\Uuid;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Estoque extends Model
 {
@@ -27,4 +28,15 @@ class Estoque extends Model
     {
         return $this->belongsToMany(User::class, 'Itemestoque', 'estoque_id', 'usersFor_id');
     }
+
+    public function provincias()
+    {
+        return $this->belongsTo(Provincia::class, 'provincia_id', 'id');
+    }
+
+    public function distritos()
+    {
+        return $this->belongsTo(Distrito::class, 'distrito_id', 'id');
+    }
+
 }
