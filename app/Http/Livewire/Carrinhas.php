@@ -24,4 +24,38 @@ class Carrinhas extends Component
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
         return view('livewire.carrinhas', compact('categoria','produto','item'))->layout('layouts.app', compact('produto', 'categoria','item'));
     }
+
+    public function delete($id)
+    {
+        $item = Itemcarrinha::findOrFail($id);
+        $item->delete();
+        $this->alertSuccess();
+    }
+
+    public function alertSuccess()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+            'type' => 'success',
+            'message' => 'Item apagado!',
+            'text' => 'O Item foi apagado com sucesso.'
+        ]);
+    }
+
+    public function alertConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+                'type' => 'warning',  
+                'message' => 'Tem certeza?', 
+                'text' => 'If deleted, you will not be able to recover this imaginary file!'
+            ]);
+    }
+
+    public function remove()
+    {
+        $this->dispatchBrowserEvent('swal:modal', [
+                'type' => 'success',  
+                'message' => 'User Delete Successfully!', 
+                'text' => 'It will not list on users table soon.'
+            ]);
+    }
 }
