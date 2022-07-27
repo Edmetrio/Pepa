@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Models\Categoria;
+use App\Models\Models\Estoque;
 use App\Models\Models\Itemcarrinha;
 use App\Models\Models\Produto;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,9 @@ class Carrinhas extends Component
     public function delete($id)
     {
         $item = Itemcarrinha::findOrFail($id);
+        $estoque = Estoque::where('distrito_id', $item->distrito_id)->where('produto_id', $item->produto_id)->first();
+        $quantidade = $estoque->quantidade + $item->quantidade;
+        $estoque->update(['quantidade' => $quantidade]);
         $item->delete();
         $this->alertSuccess();
     }
