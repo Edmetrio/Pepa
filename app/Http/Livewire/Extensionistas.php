@@ -7,32 +7,21 @@ use App\Models\Models\Extensionistafornecedor;
 use App\Models\Models\Itemcarrinha;
 use App\Models\Models\Produto;
 use App\Models\Models\Situacao;
+use App\Models\Models\Telefone;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Extensionistas extends Component
 {
+    use WithPagination;
     public $updateMode = false;
-    public $situacao_id;
+    public $situacao_id, $telefones;
     public function render()
     {
-        $item = Itemcarrinha::with('produtos', 'users', 'distritos', 'enderecos', 'unidades')->where(function ($query){
-            if(auth()->check()){
-                $query->where('users_id', Auth::user()->id);
-            }
-        })->get();
-        $tt = 0.0;
-        foreach ($item as $itens) {
-            $itens->subtotal = $itens->quantidade * $itens->produtos->preco_retalho;
-            $tt += $itens->subtotal;
-        }
-        $item->total = $tt;
-
-        $this->extensionista = Extensionistafornecedor::with('users','extensionistas','situacaos')->orderBy('created_at', 'desc')->get();
+        $extensionista = Extensionistafornecedor::with('users.telefones.carteiras','extensionistas','situacaos')->orderBy('created_at', 'desc')->paginate(2);
         $this->situacao = Situacao::orderBy('created_at', 'desc')->get();
-        $produto = Produto::orderBy('created_at', 'desc')->get();
-        $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.extensionistas')->layout('layouts.app', compact('produto','categoria','item'));
+        return view('livewire.extensionistas', compact('extensionista'))->layout('layouts.appD');
     }
 
     private function resetInputFields()
