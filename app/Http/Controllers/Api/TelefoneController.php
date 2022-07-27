@@ -16,7 +16,7 @@ class TelefoneController extends Controller
      */
     public function index()
     {
-        return Telefone::with('users','carteiras')->orderBy('created_at', 'desc')->get();
+        return Telefone::with('users','carteiras')->where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
     }
 
     /**
