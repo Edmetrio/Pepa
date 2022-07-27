@@ -23,6 +23,11 @@ class ProdutoController extends Controller
         return Produto::with('categorias')->orderBy('created_at', 'desc')->get();
     }
 
+    public function pesquisa($nome)
+    {
+        return Produto::where('nome', 'like', '%' . $nome . '%')->orderBy('created_at', 'desc')->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
