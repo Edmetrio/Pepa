@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\RegisterMail;
 use App\Models\Models\Extensionistafornecedor;
 use App\Models\Models\Role;
+use App\Models\Models\Telefone;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -24,7 +25,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        $role = Role::orderBy('created_at', 'desc')->get();
+        $role = Role::where('nome', 'cliente')->orWhere('nome', 'fornecedor')->orderBy('created_at', 'desc')->get();
         return view('auth.register', compact('role'));
     }
 
@@ -41,19 +42,20 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'role_id' => ['required'],
+            'numero' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         
         $user = User::create([
             'name' => $request->name,
+            'numero' => $request->numero,
             'email' => $request->email,
             'role_id' => $request->role_id,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
-
         if($request->role_id === '9t243f2e-ef1e-4454-9ae2-34d091efbc8p')
         {
             Extensionistafornecedor::create([
@@ -68,8 +70,16 @@ class RegisteredUserController extends Controller
 
         }
         /* Auth::login($user); */
-        
+        $input = $request->all();
+        $input['users_id'] = $user->id;
+        Telefone::create($input);
 
-        return redirect(RouteServiceProvider::HOME);
+        if($user->role_id === '9t243f2e-ef1e-4454-9ae2-34d091efbc8p')
+        {
+            return redirect()->route('dashboard');
+        } elseif ($user->role_id === '8f243f2e-ef1e-4454-9ae2-34d091efbc5t') {
+            return redirect()->route('dashboard');
+        }
+        /* return redirect(RouteServiceProvider::HOME); */
     }
 }
