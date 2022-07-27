@@ -16,7 +16,7 @@ class EnderecoController extends Controller
      */
     public function index()
     {
-        return Endereco::with('users','distritos')->orderBy('created_at', 'desc')->get();
+        return Endereco::with('distritos.provincias.pais','users')->where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
     }
 
     /**
