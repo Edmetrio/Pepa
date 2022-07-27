@@ -21,6 +21,7 @@ class Contas extends Component
     public $pais_id, $provincia_id, $distrito_id, $nome;
     public $selectedPais = NULL;
     public $selectedProvincia = NULL;
+    public $historico = false, $contacto = false, $pagamento = false, $endereco = false;
 
     public function mount()
     {
@@ -67,12 +68,22 @@ class Contas extends Component
         $item->total = $tt;
 
         $this->telefone = Telefone::with('carteiras')->where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
-        $this->endereco = Endereco::with('distritos')->where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
-        /* dd($this->telefone); */
+        $this->endereco = Endereco::with('distritos.provincias.pais')->where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
+        /* dd($this->endereco); */
         $this->carteira = Carteira::orderBy('created_at', 'desc')->get();
         $produto = Produto::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
         return view('livewire.contas')->layout('layouts.app', compact('produto', 'categoria', 'item'));
+    }
+
+    public function press()
+    {
+        if (isset($this->contacto)) {
+            $this->contacto = true;
+        } else {
+            dd('false');
+        }
+        
     }
 
     public function item()
