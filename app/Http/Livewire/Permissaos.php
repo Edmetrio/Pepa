@@ -10,9 +10,11 @@ use App\Models\Models\Role;
 use App\Models\Models\Rota;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Permissaos extends Component
 {
+    use WithPagination;
     public $role_id, $rota_id, $post_id;
     public $updateMode = false;
 
@@ -77,24 +79,9 @@ class Permissaos extends Component
 
     public function render()
     {
-        $item = Itemcarrinha::with('produtos', 'users', 'distritos', 'enderecos', 'unidades')->where(function ($query) {
-            if (auth()->check()) {
-                $query->where('users_id', Auth::user()->id);
-            }
-        })->get();
-        $tt = 0.0;
-        foreach ($item as $itens) {
-            $itens->subtotal = $itens->quantidade * $itens->produtos->preco_retalho;
-            $tt += $itens->subtotal;
-        }
-        $item->total = $tt;
-
-        $this->permissao = Permissao::with('rotas','roles')->orderBy('created_at', 'desc')->get();
-        /* dd($this->permissao); */
+        $permissao = Permissao::with('rotas','roles')->orderBy('created_at', 'desc')->paginate(5);
         $this->rota = Rota::orderBy('created_at', 'desc')->get();
         $this->role = Role::orderBy('created_at', 'desc')->get();
-        $produto = Produto::orderBy('created_at', 'desc')->get();
-        $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.permissaos')->layout('layouts.app', compact('produto','categoria','item'));
+        return view('livewire.permissaos', compact('permissao'))->layout('layouts.appD');
     }
 }
