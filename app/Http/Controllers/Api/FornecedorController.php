@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Models\Pais;
-use App\Models\Models\Paisestoque;
+use App\Models\Models\Fornecedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class PaisController extends Controller
+class FornecedorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,7 @@ class PaisController extends Controller
      */
     public function index()
     {
-        return Pais::orderBy('created_at', 'desc')->get();
+        //
     }
 
     /**
@@ -37,7 +37,27 @@ class PaisController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'distrito_id' => 'required',
+            'endereco' => 'required',
+            'categoria' => 'required',
+            'produto' => 'required',
+            'quantidade' => 'required',
+            'montante' => 'required',
+            'observacao' => 'required',
+        ]);
+
+        dd(Auth::user()->id);
+        $input = $request->all();
+        $input['users_id'] = 'd2b4caf8-67b6-4429-b120-f9540608d9e1';
+        
+  
+        $fornecedor = Fornecedor::create($input);
+        if($fornecedor){
+            return ["resultado"=>"Fornecedor criado com sucesso"];
+        } else {
+            return ["resultado"=>"Erro ao Adicionar"];
+        }
     }
 
     /**

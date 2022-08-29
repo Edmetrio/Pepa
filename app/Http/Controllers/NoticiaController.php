@@ -42,6 +42,8 @@ class NoticiaController extends Controller
             'nome' => 'required',
             'descricao' => 'required',
             'icon' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'simbolo' => 'required',
+            'link' => 'required'
         ]);
   
         $input = $request->all();
@@ -51,6 +53,13 @@ class NoticiaController extends Controller
             $profileImage = date('YmdHis') . "." . $icon->getClientOriginalExtension();
             $icon->move($destinationPath, $profileImage);
             $input['icon'] = "$profileImage";
+        }
+
+        if ($simbolo = $request->file('simbolo')) {
+            $destinationPath = 'assets/images/noticia';
+            $profileImage = date('YmdHis') . "." . $simbolo->getClientOriginalExtension();
+            $simbolo->move($destinationPath, $profileImage);
+            $input['simbolo'] = "$profileImage";
         }
     
         Noticia::create($input);
@@ -93,7 +102,9 @@ class NoticiaController extends Controller
     {
         $request->validate([
             'nome' => 'required',
-            'descricao' => 'required'
+            'descricao' => 'required',
+            'simbolo' => 'required',
+            'link' => 'required'
         ]);
   
         $input = $request->all();
@@ -107,6 +118,16 @@ class NoticiaController extends Controller
             $input['icon'] = "$profileImage";
         }else{
             unset($input['icon']);
+        }
+
+        if ($simbolo = $request->file('simbolo')) {
+            File::delete(public_path("assets/images/noticia/". $noticia->icon));
+            $destinationPath = 'assets/images/noticia';
+            $profileImage = date('YmdHis') . "." . $simbolo->getClientOriginalExtension();
+            $simbolo->move($destinationPath, $profileImage);
+            $input['simbolo'] = "$profileImage";
+        }else{
+            unset($input['simbolo']);
         }
           
         Noticia::findOrFail($id)->update($input);

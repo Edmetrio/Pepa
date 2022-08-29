@@ -15,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return Role::with('rotas')->where('nome', 'cliente')->orWhere('nome', 'fornecedor')->orderBy('created_at', 'desc')->get();
+        return Role::with('rotas','users')->where('nome', 'cliente')->orWhere('nome', 'fornecedor')->orderBy('created_at', 'desc')->get();
     }
 
     /**

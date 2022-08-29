@@ -44,7 +44,8 @@ class ItemCarrinhaController extends Controller
         $request->validate([
             'produto_id' => 'required',
             'distrito_id' => 'required',
-            'quantidade' => 'required',
+            'endereco_id' => 'required',
+            'quantidade' => 'required'
         ]);
         if ($estoque) {
             if ($estoque->quantidade >= $request->quantidade) {
@@ -52,6 +53,8 @@ class ItemCarrinhaController extends Controller
                 $estoque->update(['quantidade' => $qts]);
                 $input = $request->all();
                 $input['users_id'] = Auth::user()->id;
+                $input['unidade_id'] = 'a0fb62b9-36f0-4f74-a2e1-83ea7240be76';
+                $input['estado'] = 'reservado';
                 Itemcarrinha::create($input);
                 return ["resultado" => "Produto adicionado! Verifica carrinha"];
             } else {

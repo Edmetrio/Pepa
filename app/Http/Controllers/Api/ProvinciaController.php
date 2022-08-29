@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Models\Provincia;
+use App\Models\Models\Provinciaestoque;
 use Illuminate\Http\Request;
 
 class ProvinciaController extends Controller
@@ -15,7 +16,8 @@ class ProvinciaController extends Controller
      */
     public function index()
     {
-        return Provincia::with('pais', 'produtos')->where('pais_id', '7f243f2e-ef1e-4454-9ae2-34d091efbc9h')->orderBy('created_at', 'desc')->get();
+        return Provincia::with('pais', 'produtos')->orderBy('created_at', 'desc')->get();
+   
     }
 
     /**
@@ -47,7 +49,7 @@ class ProvinciaController extends Controller
      */
     public function show($id)
     {
-        return Provincia::with('pais', 'produtos')->where('pais_id', $id)->orderBy('created_at', 'desc')->get();
+        return Provincia::where('pais_id', $id)->orderBy('created_at', 'desc')->get();
     }
 
     /**

@@ -94,4 +94,9 @@ class AuthController extends Controller
             'message' => 'Logout efectuado com sucesso!'
         ];
     }
+
+    public function users()
+    {
+        return User::with('roles')->orderBy('created_at', 'desc')->get();
+    }
 }
