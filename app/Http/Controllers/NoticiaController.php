@@ -103,7 +103,7 @@ class NoticiaController extends Controller
         $request->validate([
             'nome' => 'required',
             'descricao' => 'required',
-            'simbolo' => 'required',
+            /* 'simbolo' => 'required', */
             'link' => 'required'
         ]);
   
@@ -121,7 +121,7 @@ class NoticiaController extends Controller
         }
 
         if ($simbolo = $request->file('simbolo')) {
-            File::delete(public_path("assets/images/noticia/". $noticia->icon));
+            File::delete(public_path("assets/images/noticia/". $noticia->simbolo));
             $destinationPath = 'assets/images/noticia';
             $profileImage = date('YmdHis') . "." . $simbolo->getClientOriginalExtension();
             $simbolo->move($destinationPath, $profileImage);
