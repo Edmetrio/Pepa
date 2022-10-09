@@ -12,7 +12,7 @@ class Historicos extends Component
     use WithPagination;
     public function render()
     {
-        $encomenda = Encomenda::with('produtos')->where('users_id', Auth::user()->id)->paginate(5);
+        $encomenda = Encomenda::with('produtos')->where('users_id', Auth::user()->id)->get();
         $ttt = 0.0;
         foreach($encomenda as $e)
         {
@@ -23,6 +23,7 @@ class Historicos extends Component
             }
         }
         $encomenda->total = $ttt;
+        
         /* dd($this->encomenda); */
         return view('livewire.historicos', compact('encomenda'))->layout('layouts.appD');
     }

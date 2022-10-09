@@ -9,9 +9,11 @@ use App\Models\Models\Role;
 use App\Models\Models\Rota;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Roles extends Component
 {
+    use WithPagination;
     public $nome, $post_id;
     public $updateMode = false;
 
@@ -23,7 +25,7 @@ class Roles extends Component
     public function store()
     {
         $validatedDate = $this->validate([
-            'nome' => 'required',
+            'nome' => 'required|unique:role,nome',
         ]);
         Role::create($validatedDate);
   
@@ -71,21 +73,7 @@ class Roles extends Component
 
     public function render()
     {
-        $item = Itemcarrinha::with('produtos', 'users', 'distritos', 'enderecos', 'unidades')->where(function ($query) {
-            if (auth()->check()) {
-                $query->where('users_id', Auth::user()->id);
-            }
-        })->get();
-        $tt = 0.0;
-        foreach ($item as $itens) {
-            $itens->subtotal = $itens->quantidade * $itens->produtos->preco_retalho;
-            $tt += $itens->subtotal;
-        }
-        $item->total = $tt;
-
-        $this->role = Role::orderBy('created_at', 'desc')->get();
-        $produto = Produto::orderBy('created_at', 'desc')->get();
-        $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.roles')->layout('layouts.app', compact('produto','categoria','item'));
+        $role = Role::orderBy('created_at', 'desc')->paginate(5);
+        return view('livewire.roles', compact('role'))->layout('layouts.appD');
     }
 }

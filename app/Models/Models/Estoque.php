@@ -17,7 +17,7 @@ class Estoque extends Model
     protected $guarded = [];
 
     protected $table = 'estoque';
-    protected $fillable = ['produto_id','quantidade','pais_id','distrito_id','estado'];
+    protected $fillable = ['produto_id','quantidade','pais_id','distrito_id','provincia_id','estado'];
 
     public function produtos()
     {
@@ -39,4 +39,8 @@ class Estoque extends Model
         return $this->belongsTo(Distrito::class, 'distrito_id', 'id');
     }
 
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id', 'id');
+    }
 }

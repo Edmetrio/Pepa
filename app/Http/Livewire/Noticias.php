@@ -8,9 +8,17 @@ use App\Models\Models\Noticia;
 use App\Models\Models\Produto;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Noticias extends Component
 {
+    use WithPagination;
+
+    public function mount()
+    {
+        $this->noticias = Noticia::orderBy('created_at', 'desc')->get();
+    }
+
     public function render()
     {
         $item = Itemcarrinha::with('produtos', 'users', 'distritos', 'enderecos', 'unidades')->where(function ($query){
@@ -26,7 +34,7 @@ class Noticias extends Component
         $item->total = $tt;
         $produto = Produto::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        $this->noticia = Noticia::orderBy('created_at', 'desc')->get();
-        return view('livewire.noticias')->layout('layouts.app', compact('produto','categoria','item'));
+        $noticia = Noticia::orderBy('created_at', 'desc')->paginate(6);
+        return view('livewire.noticias', compact('noticia'))->layout('layouts.app', compact('produto','categoria','item'));
     }
 }

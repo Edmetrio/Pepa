@@ -21,4 +21,14 @@ class Distrito extends Model
     {
         return $this->belongsToMany(Pais::class, 'distrito_id');
     }
+
+    public function provincias()
+    {
+        return $this->belongsTo(Provincia::class, 'provincia_id');
+    }
+
+    public function produtos()
+    {
+        return $this->belongsToMany(Produto::class, 'estoque')->withPivot('provincia_id','pais_id', 'distrito_id','quantidade');
+    }
 }

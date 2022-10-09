@@ -9,13 +9,18 @@ use App\Models\Models\Noticiacomentario;
 use App\Models\Models\Produto;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Itemcomentarios extends Component
 {
+    use WithPagination;
+    public $search = '';
     public $mensagem;
     public function mount($id)
     {
+        /* dd($id); */
         $this->noticias = Noticia::findOrFail($id);
+        /* dd($this->noticias->id); */
     }
 
     public function render()
@@ -33,9 +38,12 @@ class Itemcomentarios extends Component
         $item->total = $tt;
         $produto = Produto::orderBy('created_at', 'desc')->get();
         $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        $this->ultimas = Noticia::whereNotIn('id', [$this->noticias->id])->orderBy('created_at', 'desc')->get();
-        $this->comentarios = Noticiacomentario::orderBy('created_at', 'desc')->get();
-        return view('livewire.itemcomentarios')->layout('layouts.app', compact('produto','categoria','item'));
+        $ultima = Noticia::whereNotIn('id', [$this->noticias->id])->orderBy('created_at', 'desc')->get();
+        $ultimas = Noticia::whereNotIn('id', [$this->noticias->id])->where('nome', 'like', '%' . $this->search . '%')->orderBy('created_at', 'desc')->get();
+        /* dd($ultimas); */
+        $comentarios = Noticiacomentario::with('users')->where('noticia_id', $this->noticias->id)->paginate(1);
+        /* dd($comentarios); */
+        return view('livewire.itemcomentarios', compact('comentarios','ultimas'))->layout('layouts.app', compact('produto','categoria','item'));
     }
 
     public function limpar()

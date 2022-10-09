@@ -22,4 +22,16 @@ class Produto extends Model
     {
         return $this->hasOne(Categoria::class, 'id', 'categoria_id');
     }
+
+    public function provincias()
+    {
+        return $this->belongsToMany(Provincia::class, 'estoque');
+    }
+
+    public function distritos()
+    {
+        return $this->belongsToMany(Distrito::class, 'estoque', 'produto_id','distrito_id');
+    }
+
+    
 }

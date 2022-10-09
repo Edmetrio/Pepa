@@ -11,11 +11,14 @@ use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Users extends Component
 {
+    use WithPagination;
     public $role_id, $name, $email, $icon, $password, $email_verified_at, $post_id;
     public $updateMode = false;
+    public $search = '';
 
     private function resetInputFields()
     {
@@ -89,23 +92,12 @@ class Users extends Component
 
     public function render()
     {
-        $item = Itemcarrinha::with('produtos', 'users', 'distritos', 'enderecos', 'unidades')->where(function ($query) {
-            if (auth()->check()) {
-                $query->where('users_id', Auth::user()->id);
-            }
-        })->get();
-        $tt = 0.0;
-        foreach ($item as $itens) {
-            $itens->subtotal = $itens->quantidade * $itens->produtos->preco_retalho;
-            $tt += $itens->subtotal;
-        }
-        $item->total = $tt;
-
-        $this->users = User::with('roles')->orderBy('created_at', 'desc')->get();
-        /*  dd($this->users); */
+        $users = User::with('roles')->where('name', 'like', '%' . $this->search . '%')
+                    ->whereOr('email', 'like', '%' . $this->search . '%')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(5);
+        /* $users = User::with('roles')->orderBy('created_at', 'desc')->paginate(5); */
         $this->role = Role::orderBy('created_at', 'desc')->get();
-        $produto = Produto::orderBy('created_at', 'desc')->get();
-        $categoria = Categoria::orderBy('created_at', 'desc')->get();
-        return view('livewire.users')->layout('layouts.app', compact('produto', 'categoria', 'item'));
+        return view('livewire.users', compact('users'))->layout('layouts.appD');
     }
 }

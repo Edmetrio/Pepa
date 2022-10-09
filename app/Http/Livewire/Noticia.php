@@ -8,6 +8,6 @@ class Noticia extends Component
 {
     public function render()
     {
-        return view('livewire.noticia');
+        return view('livewire.noticia')->layout('layouts.appD');
     }
 }

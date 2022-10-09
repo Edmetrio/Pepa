@@ -4,12 +4,15 @@ namespace App\Http\Livewire;
 
 use App\Models\Models\Categoria;
 use App\Models\Models\Distrito;
+use App\Models\Models\Distritoestoque;
 use App\Models\Models\Endereco;
 use App\Models\Models\Estoque;
 use App\Models\Models\Itemcarrinha;
 use App\Models\Models\Pais;
+use App\Models\Models\Paisestoque;
 use App\Models\Models\Produto;
 use App\Models\Models\Provincia;
+use App\Models\Models\Provinciaestoque;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -24,6 +27,12 @@ class Items extends Component
     public $selectedProvincia = NULL;
     public $selectedDistrito = NULL;
     public $show = false;
+
+    private function resetInputFields()
+    {
+        $this->transporte = 'null';
+        $this->endereco_id = 'null';
+    }
 
     public function mount($id)
     {
@@ -51,8 +60,7 @@ class Items extends Component
         }
         $item->total = $tt;
 
-        $this->pais = Pais::orderBy('created_at', 'desc')->get();
-        /* $this->provincia = Provincia::orderBy('created_at', 'desc')->get(); */
+        $this->pais = Paisestoque::with('pais')->orderBy('created_at', 'desc')->get();
         $this->distrito = Distrito::orderBy('created_at', 'desc')->get();
         $this->endereco = Endereco::where('users_id', Auth::user()->id)->get();
         $produto = Produto::orderBy('created_at', 'desc')->get();
@@ -74,6 +82,7 @@ class Items extends Component
         $validatedDate['unidade_id'] = 'a0fb62b9-36f0-4f74-a2e1-83ea7240be76';
         $validatedDate['transporte'] = $this->transporte;
         $validatedDate['estado'] = 'reservado';
+        /* dd($validatedDate); */
         if ($estoque) {
             if ($estoque->quantidade >= $this->quantidade) {
                 $qts = $estoque->quantidade - $this->quantidade;
@@ -96,24 +105,22 @@ class Items extends Component
             $this->show = true;
         } else {
             $this->show = false;
+            $this->resetInputFields();
         }  
     }
 
     public function updatedSelectedPais($pais_id)
     {
         if (!is_null($pais_id)) {
-                $this->provincias = Provincia::where('pais_id', $pais_id)->get();
-                /* $this->provincias = Estoque::with('provincias')->where('pais_id', $pais_id)->where('produto_id', $this->produto_id)->get(); 
-                dd($this->provincias); */
+                
+                $this->provincias = Provinciaestoque::with('provincias')->where('pais_id', $pais_id)->get();
             }
     }
 
     public function updatedSelectedProvincia($provincia_id)
     {
         if (!is_null($provincia_id)) {
-            $this->distritos = Distrito::where('provincia_id', $provincia_id)->get();
-            /* $this->distritos = Estoque::with('distritos')->where('provincia_id', $provincia_id)->where('produto_id', $this->produto_id)->get();
-            dd( $this->distritos); */
+            $this->distritos = Distritoestoque::where('provincia_id', $provincia_id)->get();
         }
     }
 

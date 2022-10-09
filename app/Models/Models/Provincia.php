@@ -19,6 +19,12 @@ class Provincia extends Model
 
     public function pais()
     {
-        return $this->belongsTo(Pais::class);
+        return $this->belongsTo(Pais::class, 'pais_id');
     }
+
+    public function produtos()
+    {
+        return $this->belongsToMany(Produto::class, 'estoque')->withPivot('provincia_id','pais_id', 'distrito_id');
+    }
+    
 }

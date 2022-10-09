@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class Fornecedores extends Component
 {
-    public $users_id, $pais_id, $distrito_id, $nome, $quantidade, $categoria, $produto, $montante, $observacao;
+    public $users_id, $pais_id, $distrito_id, $nome, $quantidade, $categoria, $produto, $montante, $observacao,$endereco;
     public $selectedPais = NULL;
     public $selectedProvincia = NULL;
 
@@ -41,6 +41,7 @@ class Fornecedores extends Component
         $this->produto = '';
         $this->nome = '';
         $this->observacao = '';
+        $this->endereco = '';
     }
 
     public function updatedSelectedPais($pais_id)
@@ -72,7 +73,7 @@ class Fornecedores extends Component
             'selectedPais' => 'required',
             'selectedProvincia' => 'required',
             'distrito_id' => 'required',
-            'nome' => 'required',
+            'endereco' => 'required',
             'categoria' => 'required',
             'produto' => 'required',
             'quantidade' => 'required',
@@ -82,14 +83,14 @@ class Fornecedores extends Component
         
         $input = $validatedDate;
         $input['users_id'] = Auth::user()->id;
-
+    
         $f = Fornecedor::create($input);
-        Endereco::create($input);
+        /* Endereco::create($input); */
 
         $details = Fornecedor::with('users.enderecos','users.telefones','distritos.provincias.pais')->findOrFail($f->id);
 
-        Mail::to('admin@firsteducation.edu.mz')->send(new FormularioMail($details));
-        Mail::to('extensionista@firsteducation.edu.mz')->send(new FormularioMail($details));
+        Mail::to('admin@pepa.co.mz')->send(new FormularioMail($details));
+        Mail::to('extensionista@pepa.co.mz')->send(new FormularioMail($details));
         $this->alertSuccess();
   
         $this->resetInputFields(); 
