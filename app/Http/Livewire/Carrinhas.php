@@ -26,6 +26,16 @@ class Carrinhas extends Component
         return view('livewire.carrinhas', compact('categoria','produto','item'))->layout('layouts.app', compact('produto', 'categoria','item'));
     }
 
+    public function mais()
+    {
+        dd('Mais');
+    }
+
+    public function menos()
+    {
+        dd('Menos');
+    }
+
     public function delete($id)
     {
         $item = Itemcarrinha::findOrFail($id);

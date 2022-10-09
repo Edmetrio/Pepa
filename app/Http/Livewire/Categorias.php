@@ -10,8 +10,10 @@ use Livewire\Component;
 
 class Categorias extends Component
 {
+    
     public function mount($id)
     {
+
         $this->categoria = Categoria::with('produtos')->findOrFail($id);
     }
 
