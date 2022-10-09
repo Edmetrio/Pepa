@@ -4,10 +4,13 @@ namespace App\Http\Livewire;
 
 use App\Models\Models\Categoria;
 use App\Models\Models\Distrito;
+use App\Models\Models\Distritoestoque;
 use App\Models\Models\Estoque;
 use App\Models\Models\Pais;
+use App\Models\Models\Paisestoque;
 use App\Models\Models\Produto;
 use App\Models\Models\Provincia;
+use App\Models\Models\Provinciaestoque;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -31,7 +34,7 @@ class Estoques extends Component
 
     public function render()
     {
-        $estoque = Estoque::with('pais','provincias','distritos','produtos')->paginate(5);
+        $estoque = Estoque::with('pais', 'provincias', 'distritos', 'produtos')->paginate(5);
         return view('livewire.estoques', compact('estoque'))->layout('layouts.appD');
     }
 
@@ -55,23 +58,66 @@ class Estoques extends Component
             'produto_id' => 'required',
             'quantidade' => 'required',
         ]);
-        
+
         $input = $validatedDate;
         $input['pais_id'] = $this->selectedPais;
         $input['provincia_id'] = $this->selectedProvincia;
         $input['categoria_id'] = $this->selectedCategoria;
         /* dd($input); */
-        Estoque::create($input);
+        //Verificar Existência de Produto e Distrito
+        if (Estoque::where('distrito_id', $this->distrito_id)->where('produto_id', $this->produto_id)->exists()) {
+            session()->flash('message', 'Estoque Existente!');
+        } else {
+            //Criação do Estoque
+            $estoque = Estoque::create($input);
+            $inputEstoque = $input;
+            $inputEstoque['estoque_id'] = $estoque->id;
 
-        session()->flash('message', 'Estoque criada com sucesso!');
-  
-        $this->resetInputFields(); 
+            $estoqueId = Estoque::findOrFail($estoque->id);
+
+            if (Paisestoque::where('pais_id', $estoqueId->pais_id)->exists()) {
+                session()->flash('message', 'País Inexistente!');
+            } else {
+                Paisestoque::create($inputEstoque);
+            }
+
+            if (Provinciaestoque::where('provincia_id', $estoqueId->provincia_id)->exists()) {
+                session()->flash('message', 'Província Existente!');
+            } else {
+                Provinciaestoque::create($inputEstoque);
+            }
+
+            if (Distritoestoque::where('pais_id', $estoqueId->pais_id)
+            ->where('provincia_id', $estoqueId->provincia_id)
+            ->where('distrito_id', $estoqueId->distrito_id)
+            ->exists()) 
+            {
+                session()->flash('message', 'País Existente!');
+            } else {
+                Distritoestoque::create($inputEstoque);
+            }
+            
+            session()->flash('message', 'Estoque criado com sucesso!');
+            
+            /* if (Distritoestoque::where('pais_id', $estoqueId->pais_id)
+                ->where('provincia_id', $estoqueId->provincia_id)
+                ->where('distrito_id', $estoqueId->distrito_id)
+                ->exists()
+            ) {
+            session()->flash('message', 'Produto e Distrito Existente!');
+            } else {
+                Distritoestoque::create($inputEstoque);
+            }
+            session()->flash('message', 'Estoque criado com sucesso!'); */
+        }
+
+        $this->resetInputFields();
     }
 
     public function updatedSelectedPais($pais_id)
     {
         if (!is_null($pais_id)) {
-                $this->provincias = Provincia::where('pais_id', $pais_id)->get(); 
+            $this->provincias = Provincia::where('pais_id', $pais_id)->get();
         }
     }
 
@@ -85,7 +131,7 @@ class Estoques extends Component
     public function updatedSelectedCategoria($categoria_id)
     {
         if (!is_null($categoria_id)) {
-                $this->produtos = Produto::where('categoria_id', $categoria_id)->get(); 
+            $this->produtos = Produto::where('categoria_id', $categoria_id)->get();
         }
     }
 }
