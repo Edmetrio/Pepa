@@ -22,6 +22,7 @@ class Distritos extends Component
     public function render()
     {
         $distrito = Distrito::with('provincias.pais')->orderBy('created_at', 'desc')->paginate(5);
+        /* dd($distrito); */
         return view('livewire.distritos', compact('distrito'))->layout('layouts.appD'); 
     }
 
@@ -41,9 +42,9 @@ class Distritos extends Component
             'selectedProvincia' => 'required',
             'nome' => 'required',
         ]);
-
-        $validatedDate['provincia'] = $this->selectedProvincia;
-        Distrito::create($validatedDate);
+        $validatedDate['provincia_id'] = $this->selectedProvincia;
+        $input = $validatedDate;
+        Distrito::create($input);
   
         session()->flash('message', 'Província criada com sucesso!');
   

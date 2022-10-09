@@ -18,7 +18,7 @@ use Livewire\Component;
 
 class Contas extends Component
 {
-    public $pais_id, $provincia_id, $distrito_id, $nome;
+    public $pais_id, $provincia_id, $distrito_id, $nome, $carteira_id, $numero;
     public $selectedPais = NULL;
     public $selectedProvincia = NULL;
     public $historico = false, $contacto = false, $pagamento = false, $endereco = false;
@@ -123,5 +123,14 @@ class Contas extends Component
         ]);
 
         Endereco::create($validatedDate);
+    }
+
+    public function storeT()
+    {
+        $validatedDate = $this->validate([
+            'numero' => 'required',
+            'carteira_id' => 'required'
+        ]); 
+        dd($validatedDate);
     }
 }
