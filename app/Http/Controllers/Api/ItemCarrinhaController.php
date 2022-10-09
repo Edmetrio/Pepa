@@ -24,6 +24,7 @@ class ItemCarrinhaController extends Controller
             $tt += $itens->subtotal;
         }
         $item->total = $tt;
+        /* dd($item); */
         return $item;
     }
 
@@ -97,17 +98,30 @@ class ItemCarrinhaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'quantidade' => 'required'
+        ]);
         $item = Itemcarrinha::findOrFail($id);
         $estoque = Estoque::where('produto_id', $item->produto_id)->where('distrito_id', $item->distrito_id)->first();
-        $total = 0.0;
-        if ($item->quantidade > $request->quantidade) {
-            $qts = $item->quantidade + $request->quantidade;
-            $total = $qts;
+        if ($estoque) {
+            if ($item->quantidade >= $request->quantidade) {
+                $qts = $item->quantidade - $request->quantidade;
+                $qtsestoque = $estoque->quantidade + $qts;
+                $estoque->update(['quantidade' => $qtsestoque]);
+                $item->update(['quantidade' => $request->quantidade]);
+                return ["resultado" => "Produto actualizado da carrinha!"];
+            } else {
+                $qts = $item->quantidade + $request->quantidade;
+                $qtsestoque = $estoque->quantidade - $qts;
+                $estoque->update(['quantidade' => $qtsestoque]);
+                $item->update(['quantidade' => $request->quantidade]);
+                return ["resultado" => "Produto actualizado da carrinha!"];
+            }
+            
         } else {
-            $qts = $item->quantidade - $request->quantidade;
-            $total = $qts;
+            return ["resultado" => "Erro a actualizar o Produto da carrinha!"];
         }
-        dd($total);
+        
         
     }   
 
@@ -115,8 +129,19 @@ class ItemCarrinhaController extends Controller
     {
         $item = Itemcarrinha::findOrFail($id);
         $estoque = Estoque::where('produto_id', $item->produto_id)->where('distrito_id', $item->distrito_id)->first();
-        $estoque->update(['quantidade' => $item->quantidade]);
+        if ($estoque) {
+            $qts = $item->quantidade + $estoque->quantidade;
+            $estoque->update([
+                'quantidade' => $qts,
+            ]);
+            $item->delete();
+            return ["resultado" => "Produto removido da carrinha!"];
+        } else {
+            return ["resultado" => "Erro ao remover o produto da carrinha!"];
+        }
+        
+        /* $estoque->update(['quantidade' => $item->quantidade]);
         Itemcarrinha::findOrFail($id)->delete();
-        return ["resultado" => "Produto removido da carrinha"];
+        return ["resultado" => "Produto removido da carrinha"]; */
     }
 }
