@@ -26,6 +26,9 @@ class EncomendaController extends Controller
             $tt += $itens->subtotal;
         }
         $item->total = $tt;
+        $item->totaltransporte = $this->totaltransporte($item);
+        $item->ttotal = $tt + $this->totaltransporte($item);
+        /* dd($item); */
         return $item;
     }
 
@@ -46,12 +49,34 @@ class EncomendaController extends Controller
         return $item->produtos->preco_retalho * $item->quantidade;
     }
 
+    public function transporte($item)
+    {
+        $tt = 0.0;
+        if ($item->transporte === '1') {
+            $subtotal = $item->produtos->preco_retalho * $item->quantidade;
+            $total = $subtotal * 0.2;
+            $tt += $total; 
+        } else {
+           
+        }
+        return $tt;
+    }
+
     public function totalencomenda($item)
     {
         $total = 0.0;
-        foreach($item as $i)
-        {
+        foreach ($item as $i) {
             $total += $this->subtotal($i);
+        }
+        return $total;
+    }
+
+    public function totaltransporte($item)
+    {
+        $total = 0.0;
+        foreach($item as $it)
+        {
+            $total += $this->transporte($it);
         }
         return $total;
     }
