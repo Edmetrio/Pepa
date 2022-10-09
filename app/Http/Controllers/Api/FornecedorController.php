@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\FormularioMail;
 use App\Models\Models\Fornecedor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FornecedorController extends Controller
 {
@@ -47,16 +49,18 @@ class FornecedorController extends Controller
             'observacao' => 'required',
         ]);
 
-        dd(Auth::user()->id);
         $input = $request->all();
-        $input['users_id'] = 'd2b4caf8-67b6-4429-b120-f9540608d9e1';
-        
-  
+
+        $input['users_id'] = Auth::user()->id;       
         $fornecedor = Fornecedor::create($input);
+        $details = Fornecedor::with('users.enderecos','users.telefones','distritos.provincias.pais')->findOrFail($fornecedor->id);
+
+        Mail::to('admin@pepa.co.mz')->send(new FormularioMail($details));
+        Mail::to('extensionista@pepa.co.mz')->send(new FormularioMail($details));
         if($fornecedor){
-            return ["resultado"=>"Fornecedor criado com sucesso"];
+            return ["resultado"=>"Fornecedor criado com sucesso", 200];
         } else {
-            return ["resultado"=>"Erro ao Adicionar"];
+            return ["resultado"=>"Erro ao Adicionar", 404];
         }
     }
 
