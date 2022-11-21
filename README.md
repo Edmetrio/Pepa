@@ -1,4 +1,4 @@
-<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://user-images.githubusercontent.com/78727595/138461361-c462854a-98c2-4a1b-9fef-475475486e3b.png" width="200"></a></p>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/logo/icons.png" width="200"></a></p>
 
 <p align="center">
 <a href="http://pepa.co.mz/">Plataforma de Agronegócio</a>  |
@@ -54,14 +54,22 @@ Esta aplicação está disponível apenas para o administrador/dono da plataform
 - Acompanhar o estado de todas as compras
 
 
-## Code of Conduct
+## 4. Metodologia de Desenvolvimento RUP
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+RUP é uma metodologia de análise e desenvolvimento de sistemas orientados a objecto baseado na notação UML. RUP atende as necessidades dos utilizadores garantido uma produção de software de alta qualidade que cumpra um cronograma e um orçamento previsíveis.
 
-## Security Vulnerabilities
+### Fases do RUP
+- Concepção;
+- Elaboração;
+- Construção;
+- Transição.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+## 5. Esquema de Base de dados
+Modelo de domínio, ou seja, relação entre as tabelas da base de dados é a representação visual do projecto da base de dados ou objectos do mundo real que devem ser representadas no sistema.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 6. Ferramentas do processo de desenvolvimento do Software
+O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas no ambiente da implementação, assim como as vantagens e desvantagens desta ferramenta em relação a outras existentes. Para desenvolver o software utilizou-se as seguintes ferramentas: linguagem de modelação UML, linguagem de programação PHP, framework laravel, sistema de gestão de base de dados MySQL, PostMan para testagem de API e ambiente de desenvolvimento Visual Studio.
+
+## 7. Anexos de Telas
+Telas: são apresentadas as telas que compõem o sistema.
