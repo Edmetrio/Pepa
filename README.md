@@ -1,64 +1,75 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/logo/icons.png" width="200"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<a href="http://pepa.co.mz/">Plataforma de Agronegócio</a>  |
+<a href="http://firsteducation.edu.mz/">Agênica Acadêmica</a>  |
+<a href="http://www.simaratours.co.mz/">Agência de Viagem</a>
 </p>
 
-## About Laravel
+## 1.   Introdução
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+A plataforma desenvolvida tem como objectivo principal disponibilizar aos seus utilizadores finais (clientes), meios para a compra de material agrícola num modelo B2C (Business to Customer – Empresa para cliente) que significa que todos os utilizadores podem são compradores e que a Empresa dispobiliza material agrícola. A materialização da plataforma consistiu na criação e combinação de 3 aplicações, uma aplicação móvel (Android), uma aplicação backend para a gestão da base de dados (API) e serviços no servidor remoto e uma aplicação (Web) que servirá de painel de administrador da plataforma e venda de dos produtos agrícolas.:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## 2.	Funcionalidades gerais do sistema
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Publicação, listagem, pesquisa e visualização de material em diferentes categorias;
+- Cadastro, autenticação e gestão de utilizadores;).
+- Venda do material publicado;
+- Pagamentos via cartões de débito e crédito e serviços móveis (m-pesa, e-mola, mkesh) *
+- Administração e gestão de utilizadores;
+- Gestão de estoques.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 3.   Funcionalidades por cada aplicação
+### a)  Aplicativo Móvel
 
-## Laravel Sponsors
+A aplicação móvel a ser desenvolvida estará disponível para os utilizadores finais (potenciais clientes e fornecedores) na versão Android e publicada na Google Play Store. Através dela os utilizadores terão acesso aos serviços e funcionalidades da plataforma que permitem
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Ao Cliente
 
-### Premium Partners
+- Pesquisar, listar e visualizar todo o material disponível, organizado em categorias
+- Adicionar material à lista de favoritos e/ou carrinho de compras
+- Efectuar pagamentos na compra de qualquer produto;
+- Receber notificações de confirmação de pagamentos;
+- Receber notificações sobre o estado da compra
+- Ver o histórico de compras;
+- Gerir o perfil.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### b) Aplicação backend
 
-## Contributing
+Esta é a peça mais importante de toda a plataforma, pois só através dela funciona as outras duas aplicações. Todos os pedidos e dados fornecidos e visualizados nos outros aplicativos são processados por esta aplicação que está hospedada no nosso servidor. As principais tarefas da aplicação incluem:
+- Armazenar toda a informação dos utilizadores cadastrados
+- Fornecer serviços de autenticação para o administrador e todos os outros utilizadores
+- Integrar e processar todos os serviços externos da plataforma (autenticação, notificações via firebase e pagamentos)
+- Armazenar e fornecer toda a informação relacionada ao material publicado incluindo os pagamentos e históricos numa base de dados e as imagens no servidor.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### c)	Painel de administrador
 
-## Code of Conduct
+Esta aplicação está disponível apenas para o administrador/dono da plataforma e através dela será possível ter uma visão geral de toda a plataforma. Através dela o administrador poderá: 
+- Gerir os utilizadores
+- Definir as categorias do material publicado 
+- Enviar notificações para os utilizadores (todos ou individualmente)
+- Extrair relatórios das publicações e dos pagamentos
+- Acompanhar o estado de todas as compras
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## 4. Metodologia de Desenvolvimento RUP
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+RUP é uma metodologia de análise e desenvolvimento de sistemas orientados a objecto baseado na notação UML. RUP atende as necessidades dos utilizadores garantido uma produção de software de alta qualidade que cumpra um cronograma e um orçamento previsíveis.
 
-## License
+### Fases do RUP
+- Concepção;
+- Elaboração;
+- Construção;
+- Transição.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 5. Esquema de Base de dados
+Modelo de domínio, ou seja, relação entre as tabelas da base de dados é a representação visual do projecto da base de dados ou objectos do mundo real que devem ser representadas no sistema.
+
+## 6. Ferramentas do processo de desenvolvimento do Software
+O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas no ambiente da implementação, assim como as vantagens e desvantagens desta ferramenta em relação a outras existentes. Para desenvolver o software utilizou-se as seguintes ferramentas: linguagem de modelação UML, linguagem de programação PHP, framework laravel, sistema de gestão de base de dados MySQL, PostMan para testagem de API e ambiente de desenvolvimento Visual Studio.
+
+## 7. Anexos de Telas
+Telas: são apresentadas as telas que compõem o sistema.
