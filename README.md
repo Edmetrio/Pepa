@@ -73,25 +73,40 @@ Modelo de domínio, ou seja, relação entre as tabelas da base de dados é a re
 O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas no ambiente da implementação, assim como as vantagens e desvantagens desta ferramenta em relação a outras existentes. Para desenvolver o software utilizou-se as seguintes ferramentas: linguagem de modelação UML, linguagem de programação PHP, framework laravel, sistema de gestão de base de dados MySQL, PostMan para testagem de API e ambiente de desenvolvimento Visual Studio.
 
 ## 7. Anexos de Telas
-Telas: são apresentadas as telas que compõem o sistema.
 
-### Página Inicial (Slider)
+### 7.1.    Telas da plataforma Web: são apresentadas as telas que compõem o sistema web.
+
+<h3 align="center">Página Inicial (Slider)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/Slider.jpg" width="80%"></a></p>
 
-### Página Inicial (Modal)
+<h3 align="center">Página Inicial (Modal)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/Modal.jpg" width="80%"></a></p>
 
-### Item Carrinha
+<h3 align="center">Item Carrinha</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/ItemCarrinha.jpg" width="80%"></a></p>
 
-### Carrinha
+<h3 align="center">Carrinha</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/Carrinha.jpg" width="80%"></a></p>
 
-### Painel do Administrador (Categoria)
+<h3 align="center">Painel do Administrador (Categoria)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/AdminCategoria.jpg" width="80%"></a></p>
 
-### Painel do Administrador (Gestão de ACL)
+<h3 align="center">Painel do Administrador (Gestão de ACL)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/AdminACL.jpg" width="80%"></a></p>
 
 <h3 align="center">Painel do Administrador (Gestão de Estoque)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/AdminEstoque.jpg" width="80%"></a></p>
+
+### 7.1.    Telas da API: são apresentadas algumas telas que compõem a API.
+
+<h3 align="center">API - Produto</h3>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/Api%20-%20Produto.jpg" width="80%"></a></p>
+
+<h3 align="center">API - Endereço</h3>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/Api%20-%20Endereco.jpg" width="80%"></a></p>
+
+<h3 align="center">API - Item Carrinha</h3>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/ItemCarrinha.jpg" width="80%"></a></p>
+
+<h3 align="center">API - Encomenda</h3>
+<p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/Api%20-%20Encomenda.jpg" width="80%"></a></p>
