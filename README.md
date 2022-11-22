@@ -116,4 +116,5 @@ O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas
 
 - Gestão de vendas (https://github.com/Edmetrio/Takeout);
 - Agência de Acadêmica (https://github.com/Edmetrio/Education);
-- Sistema de Gestão (https://xavissa.firsteducation.edu.mz/)
+- Sistema de Gestão (https://github.com/Edmetrio/sxavissa/tree/master)
+- Agência de Viagem (https://github.com/Edmetrio/Simara/tree/master)
