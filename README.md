@@ -93,5 +93,5 @@ Telas: são apresentadas as telas que compõem o sistema.
 ### Painel do Administrador (Gestão de ACL)
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/AdminACL.jpg" width="80%"></a></p>
 
-### Painel do Administrador (Gestão de Estoque)
+<h3 align="center">Painel do Administrador (Gestão de Estoque)</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/Telas/AdminEstoque.jpg" width="80%"></a></p>
