@@ -114,6 +114,6 @@ O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas
 
 ## Links de outras plataformas
 
-- Agência Acadêmica (http://firsteducation.edu.mz/);
-- Agência de Viagem (http://www.simaratours.co.mz/);
+- Gestão de vendas (https://github.com/Edmetrio/Takeout);
+- Agência de Acadêmica (https://github.com/Edmetrio/Education);
 - Sistema de Gestão (https://xavissa.firsteducation.edu.mz/)
