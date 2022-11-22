@@ -112,7 +112,7 @@ O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas
 <h3 align="center">API - Encomenda</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/Api%20-%20Encomenda.jpg" width="80%"></a></p>
 
-## Links de outras plataformas
+## Links de outros Repositórios (GitHub)
 
 - Gestão de vendas (https://github.com/Edmetrio/Takeout);
 - Agência de Acadêmica (https://github.com/Edmetrio/Education);
