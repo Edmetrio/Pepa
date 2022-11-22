@@ -3,7 +3,8 @@
 <p align="center">
 <a href="http://pepa.co.mz/">Plataforma de Agronegócio</a>  |
 <a href="http://firsteducation.edu.mz/">Agênica Acadêmica</a>  |
-<a href="http://www.simaratours.co.mz/">Agência de Viagem</a>
+<a href="http://www.simaratours.co.mz/">Agência de Viagem</a> |
+<a href="https://xavissa.firsteducation.edu.mz/">Sistema de Gestão</a> |
 </p>
 
 ## 1.   Introdução
@@ -110,3 +111,9 @@ O processo de escolha das ferramentas deve ter em conta as tecnologias utiizadas
 
 <h3 align="center">API - Encomenda</h3>
 <p align="center"><a href="http://takeout.firsteducation.edu.mz/" target="_blank"><img src="https://github.com/Edmetrio/Pepa/blob/main/public/assets/images/API/Api%20-%20Encomenda.jpg" width="80%"></a></p>
+
+## Links de outras plataformas
+
+- Agência Acadêmica (http://firsteducation.edu.mz/);
+- Agência de Viagem (http://www.simaratours.co.mz/);
+- Sistema de Gestão (https://xavissa.firsteducation.edu.mz/)
